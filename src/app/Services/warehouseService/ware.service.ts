@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Warehouse } from '../../Model/warehouse.model';
@@ -18,7 +18,14 @@ export class WareService {
 
   getAllWareHoueByService():Observable<Warehouse[]>{
 
-    return this.http.get<Warehouse[]>(this.baseUrl)
+    
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.get<Warehouse[]>(this.baseUrl,{headers})
   }
 
   // this is the method to update data in the database
@@ -29,8 +36,15 @@ export class WareService {
 
       throw new Error('INvalid Id?')
     }
+       
+    
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
 
-    return this.http.put<Warehouse>(this.baseUrl+'/'+id,war)
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.put<Warehouse>(this.baseUrl+'/'+id,war,{headers})
   }
 
 
@@ -39,7 +53,15 @@ export class WareService {
   createWareByService(war:Warehouse):Observable<Warehouse>{
 
 
-    return this.http.post<Warehouse>(this.baseUrl,war)
+    
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+
+    return this.http.post<Warehouse>(this.baseUrl,war,{headers})
   }
 
 
@@ -53,7 +75,14 @@ export class WareService {
       throw new Error('Invalid id?')
     }
 
-    return this.http.delete<void>(`${this.baseUrl}/${id}`)
+    
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.delete<void>(`${this.baseUrl}/${id}`,{headers})
   }
 
 

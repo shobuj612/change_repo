@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Sewing } from '../../Model/sewing.model';
@@ -18,7 +18,15 @@ export class SewingService {
   
   getAllSewingByService():Observable<Sewing[]>{
 
-    return this.http.get<Sewing[]>(this.baseUrl)
+
+    
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.get<Sewing[]>(this.baseUrl,{headers})
   }
 
     // this is the method to update data in the database
@@ -31,7 +39,15 @@ export class SewingService {
         throw new Error('Id is Invalid?')
       }
 
-       return this.http.put<Sewing>(this.baseUrl+'/'+id,sew)
+
+         
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })  
+
+       return this.http.put<Sewing>(this.baseUrl+'/'+id,sew,{headers})
     }
 
    
@@ -39,7 +55,14 @@ export class SewingService {
 
     postSewingByService(sew:Sewing):Observable<Sewing>{
 
-      return this.http.post<Sewing>(this.baseUrl,sew)
+      
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+      return this.http.post<Sewing>(this.baseUrl,sew ,{headers})
     }
    
 
@@ -52,8 +75,15 @@ export class SewingService {
 
         throw new Error('Id is Invalid')
       }
+       
+        
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
 
-      return this.http.delete<void>(`${this.baseUrl}/${id}`)
+      'Authorization': `Bearer ${token}`
+    }) 
+      
+      return this.http.delete<void>(`${this.baseUrl}/${id}`,{headers})
     }
 
 }

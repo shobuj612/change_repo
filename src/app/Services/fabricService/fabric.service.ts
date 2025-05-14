@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FabricStore } from '../../Model/fabric.model';
@@ -8,47 +8,78 @@ import { FabricStore } from '../../Model/fabric.model';
 })
 export class FabricService {
 
-  private baseUrl='http://localhost:8080/fabric'
+  private baseUrl = 'http://localhost:8080/fabric'
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   // this is the method to get all the data from the database
 
-  getAllFabric():Observable<FabricStore[]>{
+  getAllFabric(): Observable<FabricStore[]> {
 
-    return this.http.get<FabricStore[]>(this.baseUrl)
+    // this is the method to get the token from the localstorage
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.get<FabricStore[]>(this.baseUrl, { headers })
   }
 
   // this is the method to update fabric in the database
 
-  updateFabricByService(id:number,fabric:FabricStore):Observable<FabricStore>{
+  updateFabricByService(id: number, fabric: FabricStore): Observable<FabricStore> {
 
-    if(id==null){
+    if (id == null) {
 
       throw new Error('Invalid ID?')
     }
 
-    return this.http.put<FabricStore>(this.baseUrl+'/'+id,fabric)
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.put<FabricStore>(this.baseUrl + '/' + id, fabric, { headers })
   }
 
 
   // this is the method to post data in the database
 
-  postFabricByService(fabric:FabricStore):Observable<FabricStore>{
+  postFabricByService(fabric: FabricStore): Observable<FabricStore> {
 
-    return this.http.post<FabricStore>(this.baseUrl,fabric)
+
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.post<FabricStore>(this.baseUrl, fabric, { headers })
   }
 
 
   // this is method to delete data from the database
 
-  deleteFabricByService(id:number):Observable<void>{
+  deleteFabricByService(id: number): Observable<void> {
 
-     if(id<=0){
+    if (id <= 0) {
 
       throw new Error('Invalid Id?')
-     }
+    }
 
-     return this.http.delete<void>(this.baseUrl+'/'+id)
+
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.delete<void>(this.baseUrl + '/' + id, { headers })
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Shipping } from '../../Model/shipping.model';
@@ -20,8 +20,15 @@ export class ShippingService {
 
   getAllShippingByService():Observable<Shipping[]>{
 
+    
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
 
-    return this.http.get<Shipping[]>(this.baseUrl)
+      'Authorization': `Bearer ${token}`
+    })
+
+
+    return this.http.get<Shipping[]>(this.baseUrl,{headers})
   }
   
   // this is the method to update data in the database
@@ -34,7 +41,14 @@ export class ShippingService {
     throw new Error('INVALID ID?')
    }
 
-    return this.http.put<Shipping>(`${this.baseUrl}/${id}`,ship)
+   
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.put<Shipping>(`${this.baseUrl}/${id}`,ship,{headers})
 
   }
 
@@ -44,7 +58,14 @@ export class ShippingService {
 
   postShippingByService(ship:Shipping):Observable<Shipping>{
 
-    return this.http.post<Shipping>(this.baseUrl,ship)
+    
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.post<Shipping>(this.baseUrl,ship,{headers})
   }
 
     // this is the method to delete data from the database
@@ -56,7 +77,14 @@ export class ShippingService {
         throw new Error('Invalid id?')
       }
 
-      return this.http.delete<void>(`${this.baseUrl}/${id}`)
+       
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })  
+
+      return this.http.delete<void>(`${this.baseUrl}/${id}`,{headers})
     }
 
 

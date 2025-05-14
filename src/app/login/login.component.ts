@@ -34,14 +34,19 @@ export class LoginComponent {
       next: (response) => {
         if (response && response.token) {
           this.authService.saveToken(response.token); // Save token only if received
-          this.router.navigate(['/home']); // Redirect after successful login
-        } else {
+          this.router.navigate(['/']); // Redirect after successful login
+        }
+        
+        else {
           this.errorMessage = 'Login failed: No token received';
         }
-      },
-      error: (error) => {
-        this.errorMessage = 'Login failed: Invalid email or password';
+
+
       }
+
+      //error: (error) => {
+       // this.errorMessage = 'Login failed: Invalid email or password';
+      //}
     });
   }
 }

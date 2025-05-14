@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Finishing } from '../../Model/fInishing.model';
@@ -8,49 +8,79 @@ import { Finishing } from '../../Model/fInishing.model';
 })
 export class FinishService {
 
-  private baseUrl='http://localhost:8080/finis'
+  private baseUrl = 'http://localhost:8080/finis'
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-   // this is the method to get data from the database
+  // this is the method to get data from the database
 
-   getAllFinish():Observable<Finishing[]>{
-
-    return this.http.get<Finishing[]>(this.baseUrl)
-   }
+  getAllFinish(): Observable<Finishing[]> {
 
 
-       // this is the method to update data in the database
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
 
-       updateFinisngByService(id:number,finis:Finishing):Observable<Finishing>{
+      'Authorization': `Bearer ${token}`
+    })
 
-        if(id==null){
-
-          throw new Error('Invalid Id?')
-        }
-
-          return this.http.put<Finishing>(this.baseUrl+'/'+id,finis)
-       }
+    return this.http.get<Finishing[]>(this.baseUrl, { headers })
+  }
 
 
-       // thi is the method for post data in the database
+  // this is the method to update data in the database
 
-       postFinishingByService(finis:Finishing):Observable<Finishing>{
+  updateFinisngByService(id: number, finis: Finishing): Observable<Finishing> {
 
-        return this.http.post<Finishing>(this.baseUrl,finis)
-       }
+    if (id == null) {
 
-       // this is the method for delete data from the database
+      throw new Error('Invalid Id?')
 
-       deleteFinishingByService(id:number):Observable<void>{
+    }
 
-        if(id<=0){
 
-          throw new Error('Invalid Id?')
-        }
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
 
-        return this.http.delete<void>(this.baseUrl+'/'+id)
-        
-       }
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.put<Finishing>(this.baseUrl + '/' + id, finis, { headers })
+  }
+
+
+  // thi is the method for post data in the database
+
+  postFinishingByService(finis: Finishing): Observable<Finishing> {
+
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.post<Finishing>(this.baseUrl, finis, { headers })
+  }
+
+  // this is the method for delete data from the database
+
+  deleteFinishingByService(id: number): Observable<void> {
+
+    if (id <= 0) {
+
+      throw new Error('Invalid Id?')
+    }
+
+
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.delete<void>(this.baseUrl + '/' + id, { headers })
+
+  }
 
 }

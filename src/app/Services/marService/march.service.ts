@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Merchandising } from '../../Model/marchendising.model';
@@ -18,7 +18,14 @@ export class MarchService {
 
   getAllMarchendising():Observable<Merchandising[]>{
 
-    return this.httpclient.get<Merchandising[]>(this.hiUrl);
+    
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.httpclient.get<Merchandising[]>(this.hiUrl,{headers});
   }
 
   // this is the update method in the database
@@ -32,14 +39,28 @@ export class MarchService {
      }
 
      
-    return this.httpclient.put<Merchandising>(`${this.hiUrl}/${id}`,march);
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.httpclient.put<Merchandising>(`${this.hiUrl}/${id}`,march,{headers});
   }
 
   // thi is the method for post in the database
 
   postMarchByService(march:Merchandising):Observable<Merchandising>{
 
-    return this.httpclient.post<Merchandising>(this.hiUrl,march)
+
+    
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.httpclient.post<Merchandising>(this.hiUrl,march,{headers})
   }
 
   // thi is the delete method from something from the database
@@ -50,7 +71,14 @@ export class MarchService {
 
       throw new Error('invalid id?')
     }
+      
+       
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
 
-    return this.httpclient.delete<void>(this.hiUrl+'/'+id)
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.httpclient.delete<void>(this.hiUrl+'/'+id,{headers})
   }
 }

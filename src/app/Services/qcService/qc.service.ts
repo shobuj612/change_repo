@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { QualityControl } from '../../Model/qualitycontrol.model';
@@ -22,7 +22,15 @@ export class QcService {
      getAllQcByService():Observable<QualityControl[]>{
 
 
-      return this.http.get<QualityControl[]>(this.baseUrl)
+      
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+
+      return this.http.get<QualityControl[]>(this.baseUrl,{headers})
      }
 
       
@@ -39,7 +47,14 @@ export class QcService {
 
         }
 
-        return this.http.put<QualityControl>(this.baseUrl+'/'+id,qc)
+        
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+        return this.http.put<QualityControl>(this.baseUrl+'/'+id,qc,{headers})
      }
 
 
@@ -47,7 +62,15 @@ export class QcService {
 
        postQcByService(qc:QualityControl):Observable<QualityControl>{
 
-        return this.http.post<QualityControl>(this.baseUrl,qc)
+
+        
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    })
+
+        return this.http.post<QualityControl>(this.baseUrl,qc,{headers})
        }
 
          
@@ -61,7 +84,14 @@ export class QcService {
           throw new Error('Id is Invalid?')
         }
 
-          return this.http.delete<void>(this.baseUrl+'/'+id)
+           
+    const token=localStorage.getItem('token');
+    const headers= new HttpHeaders({
+
+      'Authorization': `Bearer ${token}`
+    }) 
+           
+          return this.http.delete<void>(this.baseUrl+'/'+id,{headers})
        }
 
 
