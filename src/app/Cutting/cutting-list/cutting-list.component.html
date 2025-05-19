@@ -17,7 +17,7 @@
        @for (item of collect_order; track  item) {
         <tr>
           <td>{{item.cutting_id}}</td>
-          <td>{{item.order_id}}</td>
+          <td>{{item.order.order_id}}</td>
           <td>{{item.cutting_start_date}}</td>
           <td>{{item.cutting_end_date}}</td>
           <td>{{item.cut_qty}}</td>
