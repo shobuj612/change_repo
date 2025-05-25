@@ -94,6 +94,21 @@ export class BuyerListComponent  implements OnInit{
       alert('Invalid buyer ID');
     }
   }
+
+
+  // this is to new add
+
+  downloadReport() {
+  this.buyerService.downloadBuyerReport().subscribe((res: Blob) => {
+    const blob = new Blob([res], { type: 'application/pdf' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'BuyerReport.pdf';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  });
+}
   
 }
 

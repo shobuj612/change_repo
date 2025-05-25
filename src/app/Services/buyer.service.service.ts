@@ -34,7 +34,7 @@ export class BuyerServiceService {
     const token =localStorage.getItem('token');
     const headers =new HttpHeaders({
 
-      'Authorization' : ` Bearer ${token}`
+      'Authorization' : `Bearer ${token}`
     })
 
     return this.http.get<Buyer[]>(this.baseUrl,{headers});
@@ -49,7 +49,7 @@ export class BuyerServiceService {
     const token =localStorage.getItem('token');
     const headers =new HttpHeaders({
 
-      'Authorization' : ` Bearer ${token}`
+      'Authorization' : `Bearer ${token}`
     })
     return this.http.put<Buyer>(`${this.baseUrl}/${id}`, buyer ,{headers});
   }
@@ -60,7 +60,7 @@ export class BuyerServiceService {
     const token =localStorage.getItem('token');
     const headers =new HttpHeaders({
 
-      'Authorization' : ` Bearer ${token}`
+      'Authorization' : `Bearer ${token}`
     })
 
 
@@ -76,11 +76,27 @@ export class BuyerServiceService {
     const token =localStorage.getItem('token');
     const headers =new HttpHeaders({
 
-      'Authorization' : ` Bearer ${token}`
+      'Authorization' : `Bearer ${token}`
     })
 
 
     return this.http.delete<void>(`${this.baseUrl}/${id}` ,{headers});
   }
+     
+
+  // this is new to add
+downloadBuyerReport(): Observable<Blob> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}` // ✅ No space before Bearer
+  });
+
+  return this.http.get('http://localhost:8080/api/report/buyer', {
+    headers,
+    responseType: 'blob'
+  });
+}
+
+
 
 }
