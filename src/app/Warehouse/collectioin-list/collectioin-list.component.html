@@ -12,7 +12,7 @@
    @for (item of collect_order; track item) {
     <tr>
       <td>{{item.warehouse_id}}</td>
-      <td>{{item.order_id}}</td>
+      <td>{{item.order.order_id}}</td>
       <td>{{item.received_date}}</td>
       <td>{{item.stored_qty}}</td>
       <td>
