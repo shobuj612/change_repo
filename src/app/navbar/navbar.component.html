@@ -19,12 +19,12 @@
   <ul class="navbar-nav">
     <!-- Login Button -->
     <li class="nav-item">
-      <a routerLink="/login" class="btn btn-info text-success nav-link">Login</a>
+      <a  *ngIf="!IsGetToken()"  routerLink="/login" class="btn btn-info text-success nav-link">Login</a>
     </li>
 
     <!-- Logout Button -->
     <li class="nav-item">
-      <button (click)="onLogout()" class="btn btn-info text-success nav-link">Logout</button>
+      <button *ngIf="IsGetToken()" (click)="onLogout()" class="btn btn-info text-success nav-link">Logout</button>
     </li>
   </ul>
 </nav>
