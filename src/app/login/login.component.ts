@@ -1,6 +1,4 @@
 
-
-// src/app/components/login/login.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../SecurityService/auth.service';
