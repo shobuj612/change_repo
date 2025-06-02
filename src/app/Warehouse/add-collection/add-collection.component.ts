@@ -1,24 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Warehouse } from '../../Model/warehouse.model';
 import { Router } from '@angular/router';
 import { WareService } from '../../Services/warehouseService/ware.service';
+import { NgFor } from '@angular/common';
+import { Order } from '../../Model/order.model';
+import { OrderService } from '../../Services/OrderService/order.service';
 
 @Component({
   selector: 'app-add-collection',
   standalone:true,
-  imports: [FormsModule],
+  imports: [FormsModule,NgFor],
   templateUrl: './add-collection.component.html',
   styleUrl: './add-collection.component.css'
 })
-export class AddCollectionComponent {
+export class AddCollectionComponent implements OnInit {
+  orders:Order[]=[];
 
   ware:Warehouse=new Warehouse()
 
   
   isUpdate=false;
 
-  constructor(private router:Router , private warService:WareService){
+  constructor(private router:Router , private warService:WareService,private orderService:OrderService){
     
     const nav= this.router.getCurrentNavigation();
 
@@ -28,9 +32,15 @@ export class AddCollectionComponent {
 
       this.isUpdate=true;
     }
-     
+    
+    }
 
+    // this is the method to get all the data from the database
 
+    ngOnInit(): void {
+        this.orderService.getAllOrderByService().subscribe((data)=>{
+          this.orders=data;
+        })
     }
 
     // this is the form Method

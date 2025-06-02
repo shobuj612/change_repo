@@ -1,24 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FabricStore } from '../../Model/fabric.model';
 import { Router } from '@angular/router';
 import { FabricService } from '../../Services/fabricService/fabric.service';
+import { NgFor } from '@angular/common';
+import { Order } from '../../Model/order.model';
+import { OrderService } from '../../Services/OrderService/order.service';
 
 @Component({
   selector: 'app-add-fabric',
   standalone:true,
-  imports: [FormsModule],
+  imports: [FormsModule,NgFor],
   templateUrl: './add-fabric.component.html',
   styleUrl: './add-fabric.component.css'
 })
-export class AddFabricComponent {
-
+export class AddFabricComponent implements OnInit {
+  
+  orders:Order[]=[];
   farbric:FabricStore =new FabricStore();
 
     
   isUpdate=false;
 
-  constructor(private router:Router , private fabricService:FabricService){
+  constructor(private router:Router , private fabricService:FabricService,private orderService:OrderService){
     
     const nav= this.router.getCurrentNavigation();
 
@@ -28,9 +32,14 @@ export class AddFabricComponent {
 
       this.isUpdate=true;
     }
-     
 
+    }
 
+    // this is the method to collect all the order from the order table
+    ngOnInit(): void {
+        this.orderService.getAllOrderByService().subscribe((data)=>{
+          this.orders=data;
+        })
     }
 
     // this is the form Method

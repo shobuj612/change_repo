@@ -10,9 +10,18 @@
         <input type="number" class="form-control" id="fabric_id" name="fabric_id" [(ngModel)]="farbric.fabric_id">
       </div>
        -->
-      <div class="col-md-6">
+     <!-- <div class="col-md-6">
         <label for="order_id" class="form-label">Order ID</label>
         <input type="number" class="form-control" id="order_id" name="order_id" [(ngModel)]="farbric.order.order_id">
+      </div>-->
+
+       <div class="col-md-6">
+        <label for="order_id" class="form-label">Order ID</label>
+         <select name="order_id" [(ngModel)]="farbric.order.order_id" >
+          <option *ngFor="let order of orders" [value]="order.order_id">
+            {{order.order_id}}
+          </option>
+         </select>
       </div>
     </div>
     

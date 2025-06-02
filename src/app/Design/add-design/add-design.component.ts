@@ -1,17 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Design } from '../../Model/design.model';
 import { Router } from '@angular/router';
 import { DesignService } from '../../Services/DesignSerivce/design.service';
+import { NgFor } from '@angular/common';
+import { Order } from '../../Model/order.model';
+import { OrderService } from '../../Services/OrderService/order.service';
 
 @Component({
   selector: 'app-add-design',
   standalone:true,
-  imports: [FormsModule],
+  imports: [FormsModule,NgFor],
   templateUrl: './add-design.component.html',
   styleUrl: './add-design.component.css'
 })
-export class AddDesignComponent {
+export class AddDesignComponent implements OnInit {
+
+  orders:Order[]=[];
 
   desingn : Design = new Design();
 
@@ -19,7 +24,7 @@ export class AddDesignComponent {
    
   isUpdate=false;
 
-  constructor(private router:Router , private designService:DesignService){
+  constructor(private router:Router , private designService:DesignService,private orderService:OrderService){
     
     const nav= this.router.getCurrentNavigation();
 
@@ -29,9 +34,14 @@ export class AddDesignComponent {
 
       this.isUpdate=true;
     }
-     
 
+    }
 
+    // this is the method to get all the order from the order table
+    ngOnInit(): void {
+        this.orderService.getAllOrderByService().subscribe((data)=>{
+          this.orders=data;
+        })
     }
 
     // this is the form Method

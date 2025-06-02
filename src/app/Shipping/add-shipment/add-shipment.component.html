@@ -8,10 +8,18 @@
     </div>
 
      -->
-    <div>
-        
+    <!--<div>
       <label class="form-label">Order ID:</label>
       <input type="number" name="order_id" class="form-control" [(ngModel)]="ship.order.order_id">
+    </div>-->
+
+    <div>
+      <label class="form-label">Order ID:</label>
+      <select name="order_id" [(ngModel)]="ship.order.order_id">
+        <option *ngFor="let order of orders" [value]="order.order_id">
+          {{order.order_id}}
+        </option>
+      </select>
     </div>
 
  

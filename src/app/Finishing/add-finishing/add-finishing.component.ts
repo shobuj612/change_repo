@@ -1,25 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Finishing } from '../../Model/fInishing.model';
 import { Router } from '@angular/router';
 import { FinishService } from '../../Services/finishingSevice/finish.service';
+import { NgFor } from '@angular/common';
+import { Order } from '../../Model/order.model';
+import { OrderService } from '../../Services/OrderService/order.service';
 
 @Component({
   selector: 'app-add-finishing',
   standalone:true,
-  imports: [FormsModule],
+  imports: [FormsModule,NgFor],
   templateUrl: './add-finishing.component.html',
   styleUrl: './add-finishing.component.css'
 })
-export class AddFinishingComponent {
+export class AddFinishingComponent implements OnInit {
 
+  orders:Order[]=[];
   finish:Finishing = new Finishing()
 
   
    
   isUpdate=false;
 
-  constructor(private router:Router , private finsisService:FinishService){
+  constructor(private router:Router , private finsisService:FinishService,private orderService:OrderService){
     
     const nav= this.router.getCurrentNavigation();
 
@@ -29,9 +33,14 @@ export class AddFinishingComponent {
 
       this.isUpdate=true;
     }
-     
 
+    }
 
+    // this is the method to get all the data from  the database
+    ngOnInit(): void {
+        this.orderService.getAllOrderByService().subscribe(data=>{
+          this.orders=data;
+        })
     }
 
     // this is the form Method

@@ -1,24 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Shipping } from '../../Model/shipping.model';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ShippingService } from '../../Services/shippingService/shipping.service';
+import { NgFor } from '@angular/common';
+import { Order } from '../../Model/order.model';
+import { OrderService } from '../../Services/OrderService/order.service';
 
 @Component({
   selector: 'app-add-shipment',
   standalone:true,
-  imports: [FormsModule],
+  imports: [FormsModule,NgFor],
   templateUrl: './add-shipment.component.html',
   styleUrl: './add-shipment.component.css'
 })
-export class AddShipmentComponent {
+export class AddShipmentComponent implements OnInit {
 
+  orders:Order[]=[];
   ship:Shipping =new Shipping()
 
   
   isUpdate=false;
 
-  constructor(private router:Router , private shipService:ShippingService){
+  constructor(private router:Router , private shipService:ShippingService,private orderService:OrderService){
     
     const nav= this.router.getCurrentNavigation();
 
@@ -28,9 +32,14 @@ export class AddShipmentComponent {
 
       this.isUpdate=true;
     }
-     
 
+    }
 
+    // this is the method to get all the data from  the order table]
+    ngOnInit(): void {
+        this.orderService.getAllOrderByService().subscribe((data)=>{
+          this.orders=data;
+        })
     }
 
     // this is the form Method

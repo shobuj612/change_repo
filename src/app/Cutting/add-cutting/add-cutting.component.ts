@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Cutting } from '../../Model/cutting.model';
 import { Router } from '@angular/router';
 import { CutService } from '../../Services/cutService/cut.service';
+import { NgFor } from '@angular/common';
+import { Order } from '../../Model/order.model';
+import { OrderService } from '../../Services/OrderService/order.service';
 
 @Component({
   selector: 'app-add-cutting',
   standalone:true,
-  imports: [FormsModule],
+  imports: [FormsModule,NgFor],
   templateUrl: './add-cutting.component.html',
   styleUrl: './add-cutting.component.css'
 })
-export class AddCuttingComponent {
+export class AddCuttingComponent  implements OnInit{
+  orders:Order[]=[]
 
   cut:Cutting =new Cutting();
 
@@ -19,7 +23,7 @@ export class AddCuttingComponent {
    
   isUpdate=false;
 
-  constructor(private router:Router , private cutService:CutService){
+  constructor(private router:Router , private cutService:CutService,private orderService:OrderService){
     
     const nav= this.router.getCurrentNavigation();
 
@@ -30,8 +34,14 @@ export class AddCuttingComponent {
       this.isUpdate=true;
     }
      
+    }
 
+    // this is the method to get all the order from the order table
 
+    ngOnInit(): void {
+        this.orderService.getAllOrderByService().subscribe(data=>{
+          this.orders=data;
+        })
     }
 
     // this is the form Method

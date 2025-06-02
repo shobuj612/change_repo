@@ -1,24 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Merchandising } from '../../Model/marchendising.model';
 import { Router } from '@angular/router';
 import { MarchService } from '../../Services/marService/march.service';
+import { Order } from '../../Model/order.model';
+import { OrderService } from '../../Services/OrderService/order.service';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-add-marchendiser-order',
   standalone:true,
-  imports: [FormsModule],
+  imports: [FormsModule,NgFor],
   templateUrl: './add-marchendiser-order.component.html',
   styleUrl: './add-marchendiser-order.component.css'
 })
-export class AddMarchendiserOrderComponent {
+export class AddMarchendiserOrderComponent implements OnInit {
+
+  orders:Order[]=[];
 
   marchendiser:Merchandising=new Merchandising();
 
    
   isUpdate=false;
 
-  constructor(private router:Router,private marchService:MarchService){
+  constructor(private router:Router,private marchService:MarchService,private orderService:OrderService){
     
     const nav= this.router.getCurrentNavigation();
 
@@ -29,9 +34,14 @@ export class AddMarchendiserOrderComponent {
       this.isUpdate=true;
     }
      
-
-
     }
+
+    // this is the method to collect all the order from the order table
+   ngOnInit(): void {
+       this.orderService.getAllOrderByService().subscribe(data=>{
+        this.orders=data;
+       })
+   }
 
     // this is the form Method
 
