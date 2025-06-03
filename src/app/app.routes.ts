@@ -30,6 +30,8 @@ import { AddShipmentComponent } from './Shipping/add-shipment/add-shipment.compo
 import { Roles } from './Role/role';
 import { RoleGuard } from './Guard/role.guard';
 import { LoginComponent } from './login/login.component';
+import { JobportalComponent } from './jobportal/jobportal.component';
+import { JobpostComponent } from './Marchendising/jobpost/jobpost.component';
  export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'about', component: AboutComponent },
@@ -37,6 +39,7 @@ import { LoginComponent } from './login/login.component';
     { path: 'tender', component: TenderComponent },
     { path: 'etender', component: ETenderComponent },
     { path: 'circuler', component: CirculerComponent },
+    {path:'portal',component:JobportalComponent},
     { path: 'login', component: LoginComponent },
   
     // Marchendising
@@ -46,6 +49,7 @@ import { LoginComponent } from './login/login.component';
     { path: 'ol', component: OrderlistComponent, canActivate: [RoleGuard], data: { roles: [Roles.MARCH] } },
     { path: 'am', component: AddMarchendiserOrderComponent, canActivate: [RoleGuard], data: { roles: [Roles.MARCH] } },
     { path: 'ml', component: MarchendiserOrderlistComponent, canActivate: [RoleGuard], data: { roles: [Roles.MARCH] } },
+    { path: 'job', component: JobpostComponent, canActivate: [RoleGuard], data: { roles: [Roles.MARCH] } },
   
     // Design
     { path: 'ad', component: AddDesignComponent, canActivate: [RoleGuard], data: { roles: [Roles.DESIGN, Roles.MARCH] } },

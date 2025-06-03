@@ -18,7 +18,7 @@
         <label for="order_id" class="form-label">Order ID</label>
         <select name="order_id" [(ngModel)]="sew.order.order_id">
           <option *ngFor="let order of orders" [value]="order.order_id">
-            {{order.order_id}}
+            {{order.order_name}}
           </option>
         </select>
       </div>

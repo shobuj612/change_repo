@@ -18,7 +18,7 @@
         <label for="order_id" class="form-label">Order ID:</label>
         <select name="order_id" [(ngModel)]="desingn.order.order_id">
           <option *ngFor="let order of orders" [value]="order.order_id">
-            {{order.order_id}}
+            {{order.order_name}}
           </option>
         </select>
       </div>
@@ -36,10 +36,20 @@
     </div>
   
     <div class="row mb-3">
-      <div class="col-md-6">
+      <!--<div class="col-md-6">
         <label for="status" class="form-label">Status:</label>
         <input type="text" name="status" id="status" class="form-control" [(ngModel)]="desingn.status" />
-      </div>
+      </div>-->
+      <div class="col-md-6">
+    <label for="status" class="form-label">Status:</label>
+    <select name="status" class="form-select" [(ngModel)]="desingn.status">
+      <option value="progress">progress</option>
+      <option value="pending">pending</option>
+      <option value="running">running</option>
+      <option value="finish">finish</option>
+      <option value="not start">not start</option>
+    </select>
+  </div>
       <div class="col-md-6">
         <label for="remarks" class="form-label">Remarks:</label>
         <input type="text" name="remarks" id="remarks" class="form-control" [(ngModel)]="desingn.remarks" />

@@ -35,7 +35,7 @@
         <label for="buyerId" class="form-label">Buyer ID:</label>
         <select name="buyerId" [(ngModel)]="order.buyer.buyerId" required>
           <option *ngFor="let hi of buyers" [value]="hi.buyerId">
-            {{hi.buyerId}}
+            {{hi.buyerName}}
           </option>
         </select>
       </div>
@@ -43,11 +43,15 @@
 
 
     <div class="row mb-3">
-      <div class="col-md-6">
+       <div class="col-md-4">
+        <label for="order_name" class="form-label">OrderName</label>
+        <input type="text" id="order_name" name="order_name" class="form-control" [(ngModel)]="order.order_name" />
+      </div>
+      <div class="col-md-4">
         <label for="styleNo" class="form-label">Style No:</label>
         <input type="text" id="styleNo" name="styleNo" class="form-control" [(ngModel)]="order.style_no" />
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <label for="orderQty" class="form-label">Order Quantity:</label>
         <input type="number" id="orderQty" name="orderQty" class="form-control" [(ngModel)]="order.order_qty" />
       </div>
@@ -66,9 +70,19 @@
     </div>
 
     <div class="row mb-3">
-      <div class="col-md-12">
+     <!-- <div class="col-md-12">
         <label for="status" class="form-label">Status:</label>
         <input type="text" id="status" name="status" class="form-control" [(ngModel)]="order.status" />
+      </div>-->
+      <div class="col-md-12">
+       <label for="status" class="form-label">Status:</label>
+      <select name="status" class="form-select" [(ngModel)]="order.status">
+      <option value="progress">progress</option>
+      <option value="pending">pending</option>
+      <option value="running">running</option>
+      <option value="finish">finish</option>
+      <option value="not start">not start</option>
+    </select>
       </div>
     </div>
 
