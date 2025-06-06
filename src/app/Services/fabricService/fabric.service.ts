@@ -82,4 +82,14 @@ export class FabricService {
 
     return this.http.delete<void>(this.baseUrl + '/' + id, { headers })
   }
+
+  // this is the method to get the report from the database
+
+  downloadReport():Observable<Blob>{
+    const token=localStorage.getItem('token');
+    const headers=new HttpHeaders({
+      'Authorization':`Bearer ${token}`
+    });
+    return this.http.get('http://localhost:8080/api/report/fabric',{headers,responseType:'blob'})
+  }
 }

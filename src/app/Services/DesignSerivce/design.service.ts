@@ -78,4 +78,13 @@ export class DesignService {
       return this.http.delete<void>(this.baseUrl+'/'+id,{headers})
     }
 
+    // this is method for  downloading the report
+    downloadReport():Observable<Blob>{
+      const token=localStorage.getItem('token');
+      const headers=new HttpHeaders({
+        'Authorization':`Bearer ${token}`
+      });
+      return this.http.get('http://localhost:8080/api/report/design',{headers,responseType:'blob'})
+    }
+
 }

@@ -79,6 +79,18 @@ export class QcListComponent implements OnInit {
       }
   }
 
+  mydownload(){
+      this.qcService.downloadReport().subscribe((res:Blob)=>{
+        const blob=new Blob([res],{type:'application/pdf'});
+        const url=window.URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url;
+        a.download='QcReport.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+    }
+
 }
 
 

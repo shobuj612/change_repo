@@ -78,6 +78,18 @@ export class MarchendiserOrderlistComponent  implements OnInit{
     }
   
     }
+
+    mydownload(){
+      this.marchService.downloadReport().subscribe((res:Blob)=>{
+        const blob=new Blob([res],{type:'application/pdf'});
+        const url=window.URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url;
+        a.download='MarchReport.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+    }
 }
 
 

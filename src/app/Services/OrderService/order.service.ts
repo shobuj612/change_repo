@@ -71,4 +71,12 @@ export class OrderService {
 
       return this.ht.delete<void>(`${this.postUrl}/${id}` ,this.getToken())
     }
+
+    downloadReport():Observable<Blob>{
+  const token=localStorage.getItem('token');
+  const headers=new HttpHeaders({
+    'Authorization':`Bearer ${token}`
+  });
+  return this.ht.get('http://localhost:8080/api/report/order',{headers,responseType:'blob'})
+}
 }

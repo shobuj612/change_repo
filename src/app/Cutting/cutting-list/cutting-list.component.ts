@@ -70,6 +70,19 @@ export class CuttingListComponent implements OnInit{
     }
     }
 
+    // this is another method to print the report
+    mydownload(){
+      this.cutService.downloadReport().subscribe((res:Blob)=>{
+        const blob=new Blob([res],{type:'application/pdf'});
+        const url=window.URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url;
+        a.download='CuttingReport.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+    }
+
 }
 
 

@@ -81,4 +81,13 @@ export class MarchService {
 
     return this.httpclient.delete<void>(this.hiUrl+'/'+id,{headers})
   }
+
+  downloadReport():Observable<Blob>{
+  const token=localStorage.getItem('token');
+  const headers=new HttpHeaders({
+    'Authorization':`Bearer ${token}`
+  });
+  return this.httpclient.get('http://localhost:8080/api/report/march',{headers,responseType:'blob'})
+}
+
 }

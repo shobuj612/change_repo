@@ -70,4 +70,13 @@ deleteDesignByService(id:number):Observable<void>{
   return this.http.delete<void>(this.baseUrl+'/'+id,this.getToken())
 }
 
+//this is another method to call the reportconntroller
+downloadReport():Observable<Blob>{
+  const token=localStorage.getItem('token');
+  const headers=new HttpHeaders({
+    'Authorization':`Bearer ${token}`
+  });
+  return this.http.get('http://localhost:8080/api/report/cut',{headers,responseType:'blob'})
+}
+
 }

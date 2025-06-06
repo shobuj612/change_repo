@@ -75,6 +75,18 @@ export class FinishingListComponent implements OnInit {
     }
     }
 
+    mydownload(){
+      this.finisService.downloadReport().subscribe((res:Blob)=>{
+        const blob=new Blob([res],{type:'application/pdf'});
+        const url=window.URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url;
+        a.download='FinishingReport.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+    }
+
 }
 
 

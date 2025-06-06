@@ -70,6 +70,19 @@ export class DesignListComponent  implements OnInit{
   }
    }
 
+   // this is the method to download the report from the database
+   mydownload(){
+    this.designService.downloadReport().subscribe((res)=>{
+      const blob=new Blob([res],{type:'application/pdf'});
+      const url=window.URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;
+      a.download='DesignReport.pdf';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    })
+   }
+
 }
 
 
