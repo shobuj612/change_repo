@@ -6,14 +6,19 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-shownotice',
-  imports:[NgFor,RouterModule],
+  imports:[NgFor,RouterModule,NgIf],
   templateUrl: './shownotice.component.html',
   styleUrls: ['./shownotice.component.css']
 })
 export class ShownoticeComponent implements OnInit {
   fileList: FileModel[] = [];
+  showTable:boolean=true;
 
   constructor(private fileService: NoticeService) {}
+
+  closeTable():boolean{
+   return this.showTable=false;
+  }
 
   ngOnInit(): void {
     this.loadFiles();
