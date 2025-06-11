@@ -1,0 +1,96 @@
+<!--
+<div  *ngIf="showTable" class="card mx-auto mt-4 shadow" style="max-width: 700px;">
+ <div class="card-header d-flex justify-content-between align-items-center">
+    
+    <h5 class="mb-0 text-success">NoticeList</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeTable()"></button>
+ </div>
+ <div class="card-body">
+    <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                <th>#</th>
+                <th>title</th>
+                <th>publishDate</th>
+                <th>Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let notice of  notices; let i=index">
+                    <td>{{i+1}}</td>
+                    <td><a href="#" (click)="notice.id && openNotice(notice.id)">{{notice.title}}</a></td>
+                    <td>{{notice.publishDate}}</td>
+                    <td>
+                        <a [href]="'http://localhost:8080/api/notices/file/' + notice.id" target="_blank">
+                            <img src="#" width="24px" alt="PDF"></a>
+                    </td>
+
+                </tr>
+            </tbody>
+        
+    </table>
+ </div>
+    </div>
+
+
+-->
+    <!--
+<div class="container">
+    
+<table class="table mt-4" *ngIf="fileList.length">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Notice Name</th>
+        <th>Download</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let file of fileList">
+        <td>{{ file.id }}</td>
+        <td><a href="#">{{ file.fileName }}</a></td>
+        <td><button type="button">PDF</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+-->
+
+<div class="container">
+  <h1 class="text-success text-center">Notice</h1>
+  <table class="table table-bordered">
+    
+ <thead>
+  <tr>
+    <th colspan="3"><button type="button" routerLink="/mynotice" style="text-align: right; padding-right: 10px;">Back</button></th>
+  </tr>
+  <tr>
+    <th>Id</th>
+    <th>Notice Name</th>
+    <th>Download</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr *ngFor="let file of fileList">
+  <td>{{ file.id }}</td>
+
+  <!-- View PDF in new tab -->
+ <td>
+   <!-- View button (opens PDF in new tab) -->
+<a [href]="'http://localhost:8080/api/notices/file/' + file.id" target="_blank">
+  {{ file.fileName }}
+</a>
+ </td>
+
+<!-- Download button -->
+<td>
+  <a [href]="'http://localhost:8080/api/notices/file/' + file.id + '?download=true'" target="_blank">
+  <button class="btn btn-outline-dark btn-sm">PDF</button>
+</a>
+
+</td>
+</tr>
+
+ </tbody>
+  </table>
+</div>
