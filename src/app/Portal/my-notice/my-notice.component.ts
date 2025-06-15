@@ -27,10 +27,13 @@ export class MyNoticeComponent {
 
   upload() {
     if (this.selectedFile) {
-      this.fileService.uploadFile(this.selectedFile).subscribe(() => {
+      this.fileService.uploadFile(this.selectedFile).subscribe( {
+        next:(resposnse)=>{console.log('file uploaded successfully'+resposnse)},
+        error:(error)=>{
+          console.error('upload fail'+error)
+        }
+        
       });
     }
   }
-
-  
 }

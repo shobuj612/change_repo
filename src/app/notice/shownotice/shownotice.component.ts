@@ -24,10 +24,10 @@ export class ShownoticeComponent implements OnInit {
     this.loadFiles();
   }
   
-  viewFile(id: number): void {
-  const url = `http://localhost:8080/api/notices/file/${id}`;
-  window.open(url, '_blank');
-}
+  //viewFile(id: number): void {
+ // const url = `http://localhost:8080/api/notices/file/${id}`;
+ // window.open(url, '_blank');
+//}
 
 
   loadFiles() {
