@@ -90,5 +90,12 @@ export class FinishService {
   });
   return this.http.get('http://localhost:8080/api/report/finish',{headers,responseType:'blob'})
 }
-
+  // this is a method to find the data last data from the database
+  getLastFinisRow():Observable<Finishing>{
+    const token=localStorage.getItem('token');
+    const headers=new HttpHeaders({
+      'Authorization':`Bearer ${token}`
+    })
+    return this.http.get<Finishing>(this.baseUrl+'/last',{headers})
+  }
 }

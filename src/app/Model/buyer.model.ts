@@ -1,6 +1,6 @@
 export class Buyer {
   buyerId?: number;  // Required, initialized to 0
-  buyerName: string;
+  buyerName?: string;
   contactPerson: string;
   email: string;
   phone: string;

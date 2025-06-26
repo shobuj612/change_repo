@@ -89,5 +89,12 @@ export class MarchService {
   });
   return this.httpclient.get('http://localhost:8080/api/report/march',{headers,responseType:'blob'})
 }
-
+// this is the method to get the last row from the database
+getLastMarch():Observable<Merchandising>{
+  const kiToken=localStorage.getItem('token');
+  const headers=new HttpHeaders({
+    'Authorization':`Bearer ${kiToken}`
+  });
+  return this.httpclient.get<Merchandising>(this.hiUrl+'/last',{headers})
+}
 }

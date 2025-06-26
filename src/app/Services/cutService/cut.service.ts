@@ -10,12 +10,9 @@ export class CutService {
 
   private baseUrl='http://localhost:8080/cut'
 
-
-
   constructor(private http:HttpClient) { }
 
   // this is the method to get the token form the localstorage
-
   private getToken(): { headers: HttpHeaders } {
   const token = localStorage.getItem('token');
   if (token) {
@@ -32,15 +29,12 @@ export class CutService {
     
   }
 }
-
-
-       
+//this is to get all the cut    
   getAllCut():Observable<Cutting[]>{
 
     return this.http.get<Cutting[]>(this.baseUrl,this.getToken())
   }
-
-
+// this is to update
   updateCuttingByServie(id:number,cut:Cutting):Observable<Cutting>
 {
 
@@ -51,16 +45,13 @@ export class CutService {
 
   return this.http.put<Cutting>(this.baseUrl+'/'+id,cut,this.getToken())
 }
-
-
-
+// this is to post the cut
 postDesignByService(cut:Cutting):Observable<Cutting>{
 
   return this.http.post<Cutting>(this.baseUrl,cut,this.getToken())
 
 }
-
-
+// this is to delete the cut
 deleteDesignByService(id:number):Observable<void>{
 
   if(id<=0){
@@ -78,5 +69,12 @@ downloadReport():Observable<Blob>{
   });
   return this.http.get('http://localhost:8080/api/report/cut',{headers,responseType:'blob'})
 }
-
+// this is to get the last cut
+getLastCut():Observable<Cutting>{
+  const token=localStorage.getItem('token');
+  const headers=new HttpHeaders({
+    'Authorization':`Bearer ${token}`
+  });
+  return this.http.get<Cutting>(this.baseUrl+'/last',{headers})
+}
 }

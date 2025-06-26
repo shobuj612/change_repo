@@ -18,8 +18,6 @@ export class SewingService {
   
   getAllSewingByService():Observable<Sewing[]>{
 
-
-    
     const token=localStorage.getItem('token');
     const headers= new HttpHeaders({
 
@@ -31,7 +29,6 @@ export class SewingService {
 
     // this is the method to update data in the database
 
-
     updateByService(id:number,sew:Sewing):Observable<Sewing>{
 
       if(id==null){
@@ -39,8 +36,6 @@ export class SewingService {
         throw new Error('Id is Invalid?')
       }
 
-
-         
     const token=localStorage.getItem('token');
     const headers= new HttpHeaders({
 
@@ -50,7 +45,6 @@ export class SewingService {
        return this.http.put<Sewing>(this.baseUrl+'/'+id,sew,{headers})
     }
 
-   
     // this is the method to post in the database
 
     postSewingByService(sew:Sewing):Observable<Sewing>{
@@ -65,9 +59,7 @@ export class SewingService {
       return this.http.post<Sewing>(this.baseUrl,sew ,{headers})
     }
    
-
     // this is the method to delete data from the database
-
 
     deleteSewingByService(id:number):Observable<void>{
 
@@ -76,7 +68,6 @@ export class SewingService {
         throw new Error('Id is Invalid')
       }
        
-        
     const token=localStorage.getItem('token');
     const headers= new HttpHeaders({
 
@@ -93,5 +84,12 @@ export class SewingService {
   });
   return this.http.get('http://localhost:8080/api/report/sew',{headers,responseType:'blob'})
 }
-
+// this is the method to get the last row from the database
+getLastSewing():Observable<Sewing>{
+  const token=localStorage.getItem('token');
+  const headers=new HttpHeaders({
+    'Authorization':`Bearer ${token}`
+  });
+  return this.http.get<Sewing>(this.baseUrl+'/last',{headers})
+}
 }

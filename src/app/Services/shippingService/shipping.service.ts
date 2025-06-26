@@ -94,6 +94,13 @@ export class ShippingService {
   });
   return this.http.get('http://localhost:8080/api/report/ship',{headers,responseType:'blob'})
 }
-
+// this is the method to get the data from the database
+getLastShipping():Observable<Shipping>{
+  const token=localStorage.getItem('token');
+  const headers=new HttpHeaders({
+    'Authorization':`Bearer ${token}`
+  });
+  return this.http.get<Shipping>(this.baseUrl+'/last',{headers})
+}
 
 }

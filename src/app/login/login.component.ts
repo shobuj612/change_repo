@@ -31,8 +31,11 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
         if (response && response.token) {
-          this.authService.saveToken(response.token); // Save token only if received
-          this.router.navigate(['/']); // Redirect after successful login
+          this.authService.saveToken(response.token);
+          setTimeout(()=>{
+              this.router.navigate(['/']);
+          },100);                              // Save token only if received
+           // Redirect after successful login
         }
         
         else {

@@ -79,4 +79,12 @@ export class OrderService {
   });
   return this.ht.get('http://localhost:8080/api/report/order',{headers,responseType:'blob'})
 }
+// this is the method to get the last datafrom the databas
+getLastOrder():Observable<Order>{
+  const token=localStorage.getItem('token');
+  const headers=new HttpHeaders({
+    'Authorization':`Bearer ${token}`
+  });
+  return this.ht.get<Order>(this.postUrl+'/last',{headers})
+}
 }

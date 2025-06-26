@@ -1,36 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../Services/noticeServie/notice.service';
-import { NgFor, NgIf } from '@angular/common';
 import { FileModel } from '../../Model/file.model';
-import { RouterModule } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-shownotice',
-  imports:[NgFor,RouterModule,NgIf],
+  imports:[NgIf,NgFor],
+  standalone: true,
   templateUrl: './shownotice.component.html',
   styleUrls: ['./shownotice.component.css']
 })
 export class ShownoticeComponent implements OnInit {
   fileList: FileModel[] = [];
-  showTable:boolean=true;
+  showTable: boolean = true;
 
-  constructor(private fileService: NoticeService) {}
-
-  closeTable():boolean{
-   return this.showTable=false;
-  }
+  constructor(
+    private fileService: NoticeService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.showTable = true; // Ensure visible on init
     this.loadFiles();
+
+    // Reset showTable when user navigates back to this component
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.showTable = true;
+      this.loadFiles(); // Optionally reload files too
+    });
   }
-  
-  //viewFile(id: number): void {
- // const url = `http://localhost:8080/api/notices/file/${id}`;
- // window.open(url, '_blank');
-//}
 
+  closeTable(): void {
+    this.showTable = false;
+  }
 
-  loadFiles() {
+  loadFiles(): void {
     this.fileService.getFiles().subscribe(files => {
       this.fileList = files;
     });

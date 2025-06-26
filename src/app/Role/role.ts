@@ -8,6 +8,8 @@ export const Roles = {
     FINISHING: 'ROLE_FINISHING',
     QC: 'ROLE_QC',
     WAREHOUSE: 'ROLE_WAREHOUSE',
-    SHIPPING: 'ROLE_SHIPPING'
+    SHIPPING: 'ROLE_SHIPPING',
+    ADMIN:'ROLE_ADMIN',
+    HR:'ROLE_HR'
   };
   

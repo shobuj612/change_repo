@@ -36,7 +36,6 @@ export class FabricService {
       throw new Error('Invalid ID?')
     }
 
-
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
 
@@ -46,12 +45,9 @@ export class FabricService {
     return this.http.put<FabricStore>(this.baseUrl + '/' + id, fabric, { headers })
   }
 
-
   // this is the method to post data in the database
 
   postFabricByService(fabric: FabricStore): Observable<FabricStore> {
-
-
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
@@ -62,7 +58,6 @@ export class FabricService {
     return this.http.post<FabricStore>(this.baseUrl, fabric, { headers })
   }
 
-
   // this is method to delete data from the database
 
   deleteFabricByService(id: number): Observable<void> {
@@ -72,12 +67,10 @@ export class FabricService {
       throw new Error('Invalid Id?')
     }
 
-
-
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
 
-      'Authorization': `Bearer ${token}`
+      'Authorization':`Bearer ${token}`
     })
 
     return this.http.delete<void>(this.baseUrl + '/' + id, { headers })
@@ -91,5 +84,13 @@ export class FabricService {
       'Authorization':`Bearer ${token}`
     });
     return this.http.get('http://localhost:8080/api/report/fabric',{headers,responseType:'blob'})
+  }
+  // this is the method to get the last row of the table
+  getLastFabric():Observable<FabricStore>{
+    const hiToken=localStorage.getItem('token');
+    const headers=new HttpHeaders({
+      'Authorization':`Bearer ${hiToken}`
+    });
+    return this.http.get<FabricStore>(this.baseUrl+'/last',{headers})
   }
 }

@@ -36,9 +36,27 @@
 <nav class="position-fixed p-3"
     style="top: 56px; left: 0; height: calc(100vh - 56px); width: 180px; border: 3px solid #a0a1a3; background-color: #5dabdf">
   <ul class="nav flex-column">
+    <!--thi is Admin Panel-->
+    <li *ngIf="hasRole('ROLE_ADMIN')" class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
+      <ul class="dropdown-menu">
+        <li><a routerLink="/production" class="dropdown-item">ProductionDashbord</a></li>
+        <li><a routerLink="/attendence" class="dropdown-item">AttendenceList</a></li>
+        <li><a routerLink="/orderinformation" class="dropdown-item">OrderInformation</a></li>
+      </ul>
+    </li>
+     <!--THIS IS HR DEPARTMENT-->
+     <li *ngIf="hasRole('ROLE_ADMIN')|| hasRole('ROLE_HR')" class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">HR</a>
+      <ul class="dropdown-menu">
+        <li><a routerLink="/regis" class="dropdown-item">Employee Registration</a></li>
+        <li><a routerLink="/atten" class="dropdown-item">Employee Attendence</a></li>
+        <li><a routerLink="/pay" class="dropdown-item">Employee Payment</a></li>
+      </ul>
+    </li>
 
     <!-- Marchendising -->
-    <li *ngIf="hasRole('ROLE_MARCH')" class="nav-item dropdown">
+    <li *ngIf="hasRole('ROLE_MARCH')||hasRole('ROLE_ADMIN')" class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Marchendising</a>
       <ul class="dropdown-menu">
         <li><a routerLink="/bl" class="dropdown-item">Buyer List</a></li>
@@ -48,11 +66,12 @@
         <li><a routerLink="/ml" class="dropdown-item">Order Control</a></li>
         <li><a routerLink="/am" class="dropdown-item">Add Order Control</a></li>
         <li><a routerLink="/job" class="dropdown-item">JobPost</a></li>
+        <li><a routerLink="/dash" class="dropdown-item">Dashboard</a></li>
       </ul>
     </li>
 
     <!-- Design -->
-    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_DESIGN')" class="nav-item dropdown">
+    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_DESIGN')||hasRole('ROLE_ADMIN')" class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Design</a>
       <ul class="dropdown-menu">
         <li><a routerLink="/dl" class="dropdown-item">Design List</a></li>
@@ -62,7 +81,7 @@
     </li>
 
     <!-- Fabric -->
-    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_FABRIC')" class="nav-item dropdown">
+    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_FABRIC')||hasRole('ROLE_ADMIN')" class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Fabric</a>
       <ul class="dropdown-menu">
         <li><a routerLink="/fl" class="dropdown-item">Fabric List</a></li>
@@ -72,7 +91,7 @@
     </li>
 
     <!-- Cutting -->
-    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_CUTTING')" class="nav-item dropdown">
+    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_CUTTING')||hasRole('ROLE_ADMIN')" class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Cutting</a>
       <ul class="dropdown-menu">
         <li><a routerLink="/cl" class="dropdown-item">Cutting List</a></li>
@@ -83,7 +102,7 @@
     </li>
 
     <!-- Sewing -->
-    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_SEWING')" class="nav-item dropdown">
+    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_SEWING')||hasRole('ROLE_ADMIN')" class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Sewing</a>
       <ul class="dropdown-menu">
         <li><a routerLink="/sl" class="dropdown-item">Sewing List</a></li>
@@ -92,7 +111,7 @@
     </li>
 
     <!-- Finishing -->
-    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_FINISHING')" class="nav-item dropdown">
+    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_FINISHING')||hasRole('ROLE_ADMIN')" class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Finishing</a>
       <ul class="dropdown-menu">
         <li><a routerLink="/fli" class="dropdown-item">Finishing List</a></li>
@@ -101,7 +120,7 @@
     </li>
 
     <!-- QC -->
-    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_QC')" class="nav-item dropdown">
+    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_QC')||hasRole('ROLE_ADMIN')" class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">QC</a>
       <ul class="dropdown-menu">
         <li><a routerLink="/ql" class="dropdown-item">QC List</a></li>
@@ -110,7 +129,7 @@
     </li>
 
     <!-- Warehouse -->
-    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_WAREHOUSE')" class="nav-item dropdown">
+    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_WAREHOUSE')||hasRole('ROLE_ADMIN')" class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Warehouse</a>
       <ul class="dropdown-menu">
         <li><a routerLink="/cwl" class="dropdown-item">Collection List</a></li>
@@ -119,7 +138,7 @@
     </li>
 
     <!-- Shipping -->
-    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_SHIPPING')" class="nav-item dropdown">
+    <li *ngIf="hasRole('ROLE_MARCH') || hasRole('ROLE_SHIPPING')||hasRole('ROLE_ADMIN')" class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shipping</a>
       <ul class="dropdown-menu">
         <li><a routerLink="/shiplist" class="dropdown-item">Shipment List</a></li>

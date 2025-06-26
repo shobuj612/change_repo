@@ -63,7 +63,6 @@ export class BuyerServiceService {
       'Authorization' : `Bearer ${token}`
     })
 
-
     return this.http.post<Buyer>(this.baseUrl, buyer ,{headers});
   }
 
@@ -79,11 +78,9 @@ export class BuyerServiceService {
       'Authorization' : `Bearer ${token}`
     })
 
-
     return this.http.delete<void>(`${this.baseUrl}/${id}` ,{headers});
   }
      
-
   // this is new to add
 downloadBuyerReport(): Observable<Blob> {
   const token = localStorage.getItem('token');
@@ -96,7 +93,12 @@ downloadBuyerReport(): Observable<Blob> {
     responseType: 'blob'
   });
 }
-
-
-
+//this is the method from the buyer table
+getLastBuyer():Observable<Buyer>{
+  const token=localStorage.getItem('token');
+  const headers=new HttpHeaders({
+    'Authorization':`Bearer ${token}`
+  });
+  return this.http.get<Buyer>(this.baseUrl+'/last',{headers})
+}
 }

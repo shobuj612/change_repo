@@ -101,6 +101,13 @@ export class QcService {
   });
   return this.http.get('http://localhost:8080/api/report/qc',{headers,responseType:'blob'})
 }
-
+// this is the method to get the last data from  the database
+getLastQc():Observable<QualityControl>{
+  const coken=localStorage.getItem('token')
+  const headers=new HttpHeaders({
+    'Authorization':`Bearer ${coken}`
+  });
+  return this.http.get<QualityControl>(this.baseUrl+'/last',{headers})
+}
 
 }

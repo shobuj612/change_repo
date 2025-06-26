@@ -84,8 +84,7 @@ export class WareService {
 
     return this.http.delete<void>(`${this.baseUrl}/${id}`,{headers})
   }
-
-  
+// this is the method to download the file from the database
 downloadReport():Observable<Blob>{
   const token=localStorage.getItem('token');
   const headers=new HttpHeaders({
@@ -93,9 +92,12 @@ downloadReport():Observable<Blob>{
   });
   return this.http.get('http://localhost:8080/api/report/ware',{headers,responseType:'blob'})
 }
-
-
-
-
-
+// this is the method to get the last data from the dataabse
+getLastWare():Observable<Warehouse>{
+  const token=localStorage.getItem('token');
+  const headers=new HttpHeaders({
+    'Authorization':`Bearer ${token}`
+  });
+  return this.http.get<Warehouse>(this.baseUrl+'/last',{headers})
+}
 }
